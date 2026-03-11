@@ -21,47 +21,53 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      if (account?.provider === "google" && profile?.email) {
-        const existingMembro = await prisma.membro.findUnique({
-          where: { googleEmail: profile.email },
-        });
-
-        if (!existingMembro) {
-          return true;
-        }
-      }
-      return true;
-    },
     async jwt({ token, user, account, profile }) {
+      console.log("JWT Callback - Email:", profile?.email);
+      
       if (account?.provider === "google" && profile?.email) {
-        let membro = await prisma.membro.findUnique({
-          where: { googleEmail: profile.email },
-        });
-
-        // Se não existe, criar automaticamente como DESBRAVADOR
-        if (!membro) {
-          // Buscar primeira unidade como padrão
-          const defaultUnidade = await prisma.unidade.findFirst({
-            orderBy: { nome: "asc" },
+        try {
+          let membro = await prisma.membro.findUnique({
+            where: { googleEmail: profile.email },
           });
 
-          if (defaultUnidade) {
-            membro = await prisma.membro.create({
-              data: {
-                nome: profile.name || profile.email,
-                googleEmail: profile.email,
-                role: "DESBRAVADOR",
-                unidadeId: defaultUnidade.id,
-              },
-            });
-          }
-        }
+          console.log("Membro encontrado:", membro ? "sim" : "não");
 
-        if (membro) {
-          token.id = membro.id;
-          token.role = membro.role as Role;
-        } else {
+          // Se não existe, criar automaticamente como DESBRAVADOR
+          if (!membro) {
+            // Buscar unidade Quetzal como padrão
+            let defaultUnidade = await prisma.unidade.findUnique({
+              where: { nome: "Quetzal" },
+            });
+
+            // Se não existir, buscar qualquer unidade
+            if (!defaultUnidade) {
+              defaultUnidade = await prisma.unidade.findFirst();
+            }
+
+            console.log("Unidade padrão:", defaultUnidade?.nome);
+
+            if (defaultUnidade) {
+              membro = await prisma.membro.create({
+                data: {
+                  nome: profile.name || profile.email,
+                  googleEmail: profile.email,
+                  role: "DESBRAVADOR",
+                  unidadeId: defaultUnidade.id,
+                },
+              });
+              console.log("Membro criado com ID:", membro.id);
+            }
+          }
+
+          if (membro) {
+            token.id = membro.id;
+            token.role = membro.role as Role;
+          } else {
+            token.id = user?.id || "";
+            token.role = "DESBRAVADOR";
+          }
+        } catch (error) {
+          console.error("Erro ao criar/buscar membro:", error);
           token.id = user?.id || "";
           token.role = "DESBRAVADOR";
         }

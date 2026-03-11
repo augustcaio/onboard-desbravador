@@ -13,14 +13,7 @@ async function main() {
   }
 
   // Create default units
-  const units = [
-    { nome: "Falcão" },
-    { nome: "Águia" },
-    { nome: "Pardal" },
-    { nome: "Onça" },
-    { nome: "Lobo" },
-    { nome: "Leão" },
-  ];
+  const units = [{ nome: "Falcão" }, { nome: "Águia" }, { nome: "Pardal" }];
 
   for (const unit of units) {
     await prisma.unidade.create({
