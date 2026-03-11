@@ -33,7 +33,7 @@ export default function LoginPage() {
             <Loader2 className="w-8 h-8 animate-spin text-foreground mx-auto" />
           ) : (
             <svg
-              className="w-7 h-w-7 mx-auto transition-transform group-hover:scale-110"
+              className="w-7 h-7 mx-auto transition-transform group-hover:scale-110"
               viewBox="0 0 24 24"
             >
               <path
