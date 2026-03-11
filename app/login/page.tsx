@@ -1,8 +1,8 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +27,13 @@ export default function LoginPage() {
         <button
           onClick={handleGoogleLogin}
           disabled={isLoading}
-          className="group relative w-20 h-20 rounded-full bg-background border-2 border-border hover:border-muted-foreground/30 hover:bg-accent transition-all duration-300 ease-out hover:scale-110 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group relative w-12 h-12 rounded-full bg-background border-2 border-border hover:border-muted-foreground/30 hover:bg-accent transition-all duration-300 ease-out hover:scale-110 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <Loader2 className="w-8 h-8 animate-spin text-foreground mx-auto" />
           ) : (
             <svg
-              className="w-10 h-10 mx-auto transition-transform group-hover:scale-110"
+              className="w-7 h-w-7 mx-auto transition-transform group-hover:scale-110"
               viewBox="0 0 24 24"
             >
               <path
