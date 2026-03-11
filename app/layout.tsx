@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "./providers";
 import { Provider } from "./provider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,17 +19,11 @@ export const metadata: Metadata = {
   description: "Sistema de pontuação de desbravadores",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/login");
-  }
-
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
