@@ -15,17 +15,27 @@ model Unidade {
   membros   Membro[]
 }
 
+enum Role {
+  DESBRAVADOR
+  SECRETARIA
+  DIRETORIA
+}
+
 model Membro {
   id           String      @id @default(cuid())
   nome         String
-  email        String      @unique
+  email        String?     // Email opcional - pode ser adicionado depois
+  googleEmail  String?     // Email Google para login (pode ser adicionado depois)
   passwordHash String?
+  role         Role        @default(DESBRAVADOR)
   cargo        String      @default("Desbravador")
   unidadeId    String
   unidade      Unidade     @relation(fields: [unidadeId], references: [id])
   pontos       Pontuacao[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+
+  @@unique([googleEmail])
 }
 
 model Pontuacao {
