@@ -1,13 +1,54 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// prisma/schema.prisma
 
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model Unidade {
+  id        String   @id @default(cuid())
+  nome      String   @unique // Falcão, Águia, Pardal...
+  membros   Membro[]
+}
+
+model Membro {
+  id         String      @id @default(cuid())
+  nome       String
+  cargo      String      @default("Desbravador")
+  unidadeId  String
+  unidade    Unidade     @relation(fields: [unidadeId], references: [id])
+  pontos     Pontuacao[]
+}
+
+model Pontuacao {
+  id                String   @id @default(cuid())
+  data              DateTime @default(now())
+  membroId          String
+  membro            Membro   @relation(fields: [membroId], references: [id])
+  
+  // PONTUAÇÃO DIÁRIA
+  kitEspiritual     Int      @default(0) // 20 pts
+  lenco             Int      @default(0) // 20 pts
+  pontualidade      Int      @default(0) // 100 pts
+  cantil            Int      @default(0) // 20 pts
+  bandeirim         Int      @default(0) // 20 pts
+  uniformeDomingo   Int      @default(0) // A DEFINIR
+  
+  // PONTUAÇÃO SECUNDÁRIA
+  atividadeCartao   Int      @default(0) // 100 pts
+  especialidade     Int      @default(0) // 200 pts
+  presencaEventos   Int      @default(0) // 100 pts
+  visita            Int      @default(0) // A DEFINIR
+  
+  // DINÂMICAS
+  dinamicas         Int      @default(0) // 5000 a 4500 pts
+  
+  // PERDA DE PONTOS (Valores negativos)
+  indisciplina      Int      @default(0) // -100
+  xingamentos       Int      @default(0) // -200
+  ofensa            Int      @default(0) // -500
+  agressao          Int      @default(0) // -1000
 }
