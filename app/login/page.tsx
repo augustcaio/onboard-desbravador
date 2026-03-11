@@ -17,10 +17,10 @@ export default function LoginPage() {
       <div className="flex flex-col items-center gap-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-foreground tracking-tight">
-            Onboard
+            Bem-vindo ao
           </h1>
-          <p className="text-muted-foreground mt-2">
-            Desbravadores
+          <p className="text-4xl font-bold text-foreground tracking-tight mt-1">
+            Clube Quetzal
           </p>
         </div>
 
