@@ -35,15 +35,34 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user, account, profile }) {
       if (account?.provider === "google" && profile?.email) {
-        const membro = await prisma.membro.findUnique({
+        let membro = await prisma.membro.findUnique({
           where: { googleEmail: profile.email },
         });
+
+        // Se não existe, criar automaticamente como DESBRAVADOR
+        if (!membro) {
+          // Buscar primeira unidade como padrão
+          const defaultUnidade = await prisma.unidade.findFirst({
+            orderBy: { nome: "asc" },
+          });
+
+          if (defaultUnidade) {
+            membro = await prisma.membro.create({
+              data: {
+                nome: profile.name || profile.email,
+                googleEmail: profile.email,
+                role: "DESBRAVADOR",
+                unidadeId: defaultUnidade.id,
+              },
+            });
+          }
+        }
 
         if (membro) {
           token.id = membro.id;
           token.role = membro.role as Role;
         } else {
-          token.id = user.id;
+          token.id = user?.id || "";
           token.role = "DESBRAVADOR";
         }
       } else if (user) {

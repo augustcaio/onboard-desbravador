@@ -1,19 +1,11 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import DashboardContent from "@/components/dashboard/DashboardContent";
 
-export default async function Home() {
-  const session = await getServerSession(authOptions);
-
+export default function Home() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-foreground">
-          Bem-vindo, {session?.user?.name || "Desbravador"}!
-        </h1>
-        <p className="text-muted-foreground mt-4">
-          Você está logado no Clube Quetzal
-        </p>
+    <div className="min-h-screen bg-background p-8">
+      <div className="max-w-6xl mx-auto">
+        <DashboardContent />
       </div>
-    </main>
+    </div>
   );
 }
