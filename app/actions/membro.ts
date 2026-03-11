@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import { Role } from "@/types/auth";
+import { Role, getCargoRole, Cargo } from "@/types/cargo";
 
 async function checkAuth() {
   const session = await getServerSession(authOptions);
@@ -24,7 +24,7 @@ export async function createMembro(formData: FormData) {
 
     const nome = formData.get("nome") as string;
     const email = formData.get("email") as string | null;
-    const cargo = formData.get("cargo") as string;
+    const cargo = formData.get("cargo") as Cargo;
     const unidadeId = formData.get("unidadeId") as string;
     const novaUnidade = formData.get("novaUnidade") as string | null;
 
@@ -49,13 +49,15 @@ export async function createMembro(formData: FormData) {
       }
     }
 
+    const role = getCargoRole(cargo);
+
     const membro = await prisma.membro.create({
       data: {
         nome,
         email,
         cargo,
+        role,
         unidadeId: finalUnidadeId,
-        role: "DESBRAVADOR" as Role,
       },
     });
 

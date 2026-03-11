@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
-import { Role } from "@/types/auth";
+import { Role, getCargoRole } from "@/types/cargo";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -62,7 +62,8 @@ export const authOptions: NextAuthOptions = {
                 data: {
                   nome: profile.name || profile.email,
                   googleEmail: profile.email,
-                  role: "DESBRAVADOR",
+                  cargo: "DESBRAVADOR",
+                  role: "MEMBRO",
                   unidadeId: defaultUnidade.id,
                   userId: newUser.id,
                 },
@@ -92,7 +93,8 @@ export const authOptions: NextAuthOptions = {
                 data: {
                   nome: existingUser.name || existingUser.email || "Membro",
                   googleEmail: profile.email,
-                  role: "DESBRAVADOR",
+                  cargo: "DESBRAVADOR",
+                  role: "MEMBRO",
                   unidadeId: defaultUnidade.id,
                   userId: existingUser.id,
                 },
@@ -104,11 +106,11 @@ export const authOptions: NextAuthOptions = {
         } catch (error) {
           console.error("Erro ao criar/buscar membro:", error);
           token.id = user?.id || "";
-          token.role = "DESBRAVADOR";
+          token.role = "MEMBRO";
         }
       } else if (user) {
         token.id = user.id;
-        token.role = (user as { role: Role }).role || "DESBRAVADOR";
+        token.role = (user as { role: Role }).role || "MEMBRO";
       }
       return token;
     },

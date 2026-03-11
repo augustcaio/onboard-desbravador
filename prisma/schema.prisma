@@ -66,19 +66,40 @@ model Unidade {
 }
 
 enum Role {
-  DESBRAVADOR
-  SECRETARIA
   DIRETORIA
+  SECRETARIA
+  LIDERANCA
+  MEMBRO
+}
+
+enum Cargo {
+  // Diretoria
+  DIRETOR
+  DIRETOR_ASSOCIADO
+  SECRETARIO
+  TESOUREIRO
+  INSTRUTOR
+  CAPELAO
+  
+  // Liderança de Unidade
+  CONSELHEIRO
+  CAPITAO
+  SECRETARIO_UNIDADE
+  TESOUREIRO_UNIDADE
+  ALMOXARIFE
+  
+  // Membro comum
+  DESBRAVADOR
 }
 
 model Membro {
   id           String      @id @default(cuid())
   nome         String
-  email        String?     // Email opcional - pode ser adicionado depois
-  googleEmail  String?     // Email Google para login (pode ser adicionado depois)
+  email        String?
+  googleEmail  String?
   passwordHash String?
-  role         Role        @default(DESBRAVADOR)
-  cargo        String      @default("Desbravador")
+  role         Role        @default(MEMBRO)
+  cargo        Cargo       @default(DESBRAVADOR)
   unidadeId    String
   unidade      Unidade     @relation(fields: [unidadeId], references: [id])
   pontos       Pontuacao[]

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { createMembro } from "@/app/actions/membro";
+import { CARGO_OPTIONS, CARGOS } from "@/types/cargo";
 
 export default function NovoMembroPage() {
   const router = useRouter();
@@ -24,6 +25,19 @@ export default function NovoMembroPage() {
       router.refresh();
     }
   }
+
+  // Group cargos by category
+  const directoriaCargos = CARGO_OPTIONS.filter(
+    (c) => ["DIRETOR", "DIRETOR_ASSOCIADO", "SECRETARIO", "TESOUREIRO", "INSTRUTOR", "CAPELAO"].includes(c.value)
+  );
+  
+  const liderancaCargos = CARGO_OPTIONS.filter(
+    (c) => ["CONSELHEIRO", "CAPITAO", "SECRETARIO_UNIDADE", "TESOUREIRO_UNIDADE", "ALMOXARIFE"].includes(c.value)
+  );
+  
+  const membroCargos = CARGO_OPTIONS.filter(
+    (c) => c.value === "DESBRAVADOR"
+  );
 
   return (
     <div className="min-h-screen bg-background p-8">
@@ -71,18 +85,35 @@ export default function NovoMembroPage() {
 
           <div className="space-y-2">
             <label htmlFor="cargo" className="text-sm font-medium">
-              Cargo
+              Cargo *
             </label>
             <select
               id="cargo"
               name="cargo"
+              required
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <option value="Desbravador">Desbravador</option>
-              <option value="Auxiliar">Auxiliar</option>
-              <option value="Instructor">Instructor</option>
-              <option value="Diretor">Diretor</option>
-              <option value="Secretário">Secretário</option>
+              <optgroup label="Diretoria">
+                {directoriaCargos.map((cargo) => (
+                  <option key={cargo.value} value={cargo.value}>
+                    {cargo.label}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Liderança de Unidade">
+                {liderancaCargos.map((cargo) => (
+                  <option key={cargo.value} value={cargo.value}>
+                    {cargo.label}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Membro">
+                {membroCargos.map((cargo) => (
+                  <option key={cargo.value} value={cargo.value}>
+                    {cargo.label}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </div>
 
@@ -109,7 +140,7 @@ export default function NovoMembroPage() {
               id="novaUnidade"
               name="novaUnidade"
               type="text"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-0"
               placeholder="Falcão"
             />
           </div>
