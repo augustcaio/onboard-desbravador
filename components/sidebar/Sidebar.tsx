@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-  SheetHeader,
-  SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,7 +19,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import {
   Home,
   Users,
@@ -29,8 +26,8 @@ import {
   Trophy,
   Menu,
   LogOut,
-  User,
   ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Role } from "@/types/cargo";
 
@@ -41,6 +38,8 @@ interface SidebarProps {
     image?: string | null;
     role: Role;
   } | null;
+  collapsed?: boolean;
+  onToggle?: () => void;
 }
 
 interface NavItem {
@@ -57,10 +56,9 @@ const navigationItems: NavItem[] = [
   { label: "Ranking", href: "/ranking", icon: Trophy, roles: ["DIRETORIA", "SECRETARIA", "LIDERANCA", "MEMBRO"] },
 ];
 
-export function Sidebar({ user }: SidebarProps) {
-  const [open, setOpen] = useState(false);
+export function Sidebar({ user, collapsed = true, onToggle }: SidebarProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
 
   const filteredItems = navigationItems.filter((item) =>
     user ? item.roles.includes(user.role) : false
@@ -74,7 +72,7 @@ export function Sidebar({ user }: SidebarProps) {
     <>
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-40 h-16 bg-background border-b flex items-center justify-between px-4">
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
               <Menu className="h-6 w-6" />
@@ -86,7 +84,8 @@ export function Sidebar({ user }: SidebarProps) {
               items={filteredItems}
               pathname={pathname}
               onLogout={handleLogout}
-              onNavigate={() => setOpen(false)}
+              collapsed={false}
+              onNavigate={() => setMobileOpen(false)}
             />
           </SheetContent>
         </Sheet>
@@ -97,13 +96,18 @@ export function Sidebar({ user }: SidebarProps) {
       </header>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:left-0 lg:w-64 lg:bg-background lg:border-r">
+      <aside
+        className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:left-0 lg:bg-background lg:border-r transition-all duration-300 ${
+          collapsed ? "lg:w-20" : "lg:w-64"
+        }`}
+      >
         <SidebarContent
           user={user}
           items={filteredItems}
           pathname={pathname}
           onLogout={handleLogout}
-          isDesktop
+          collapsed={collapsed}
+          onToggle={onToggle}
         />
       </aside>
     </>
@@ -115,26 +119,34 @@ function SidebarContent({
   items,
   pathname,
   onLogout,
+  collapsed,
+  onToggle,
   onNavigate,
-  isDesktop = false,
 }: {
   user: SidebarProps["user"];
   items: NavItem[];
   pathname: string;
   onLogout: () => void;
+  collapsed: boolean;
+  onToggle?: () => void;
   onNavigate?: () => void;
-  isDesktop?: boolean;
 }) {
   return (
     <div className="flex flex-col h-full">
-      {/* Logo */}
-      <div className="h-16 flex items-center justify-center border-b">
-        <h2 className="text-xl font-bold text-primary">Clube Quetzal</h2>
+      {/* Header */}
+      <div className={`h-16 flex items-center border-b ${collapsed ? "justify-center px-2" : "justify-between px-4"}`}>
+        {!collapsed && <h2 className="text-xl font-bold text-primary">Clube Quetzal</h2>}
+        {collapsed && <div className="w-8" />}
+        {onToggle && (
+          <Button variant="ghost" size="icon" onClick={onToggle} className={collapsed ? "" : "hidden lg:flex"}>
+            {collapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
+          </Button>
+        )}
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 py-4 overflow-y-auto">
-        <ul className="space-y-1 px-3">
+        <ul className={`space-y-1 ${collapsed ? "px-2" : "px-3"}`}>
           {items.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
@@ -144,14 +156,15 @@ function SidebarContent({
                 <Link
                   href={item.href}
                   onClick={onNavigate}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                  }`}
+                  } ${collapsed ? "justify-center px-2" : "px-3"}`}
+                  title={collapsed ? item.label : undefined}
                 >
-                  <Icon className="h-5 w-5" />
-                  {item.label}
+                  <Icon className="h-5 w-5 flex-shrink-0" />
+                  {!collapsed && <span>{item.label}</span>}
                 </Link>
               </li>
             );
@@ -160,33 +173,37 @@ function SidebarContent({
       </nav>
 
       {/* User Section */}
-      <div className="p-3 border-t">
+      <div className={`border-t ${collapsed ? "p-2" : "p-3"}`}>
         {user ? (
-          <div className="flex items-center gap-3">
-            <Avatar className="h-9 w-9">
+          <div className={`flex items-center ${collapsed ? "justify-center" : "gap-3"}`}>
+            <Avatar className={collapsed ? "h-9 w-9" : "h-9 w-9"}>
               <AvatarImage src={user.image ?? undefined} />
               <AvatarFallback>
                 {user.name?.charAt(0).toUpperCase() ?? "U"}
               </AvatarFallback>
             </Avatar>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{user.name}</p>
-              <p className="text-xs text-muted-foreground truncate">
-                {user.email}
-              </p>
-            </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onLogout}
-              title="Sair"
-            >
-              <LogOut className="h-4 w-4" />
-            </Button>
+            {!collapsed && (
+              <>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{user.name}</p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {user.email}
+                  </p>
+                </div>
+                <Button variant="ghost" size="icon" onClick={onLogout} title="Sair">
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </>
+            )}
+            {collapsed && (
+              <Button variant="ghost" size="icon" onClick={onLogout} title="Sair">
+                <LogOut className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         ) : (
-          <Button variant="outline" className="w-full" asChild>
-            <Link href="/login">Entrar</Link>
+          <Button variant="outline" className={collapsed ? "w-full" : "w-full"} asChild>
+            <Link href="/login">{collapsed ? "" : "Entrar"}</Link>
           </Button>
         )}
       </div>
