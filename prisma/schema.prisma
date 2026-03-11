@@ -6,6 +6,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Unidade {
@@ -15,12 +16,16 @@ model Unidade {
 }
 
 model Membro {
-  id         String      @id @default(cuid())
-  nome       String
-  cargo      String      @default("Desbravador")
-  unidadeId  String
-  unidade    Unidade     @relation(fields: [unidadeId], references: [id])
-  pontos     Pontuacao[]
+  id           String      @id @default(cuid())
+  nome         String
+  email        String      @unique
+  passwordHash String?
+  cargo        String      @default("Desbravador")
+  unidadeId    String
+  unidade      Unidade     @relation(fields: [unidadeId], references: [id])
+  pontos       Pontuacao[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model Pontuacao {
