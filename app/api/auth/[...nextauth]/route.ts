@@ -74,6 +74,7 @@ export const authOptions: NextAuthOptions = {
 
               token.id = newMembro.id;
               token.role = newMembro.role as Role;
+              token.image = (profile as { picture?: string }).picture;
               return token;
             }
           }
@@ -82,6 +83,7 @@ export const authOptions: NextAuthOptions = {
           if (existingUser?.membro) {
             token.id = existingUser.membro.id;
             token.role = existingUser.membro.role as Role;
+            token.image = existingUser.image;
           } else if (existingUser) {
             // Usuário existe mas não tem membro, criar membro
             let defaultUnidade = await prisma.unidade.findUnique({
@@ -101,6 +103,7 @@ export const authOptions: NextAuthOptions = {
               });
               token.id = newMembro.id;
               token.role = newMembro.role as Role;
+              token.image = existingUser.image;
             }
           }
         } catch (error) {
@@ -118,6 +121,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as Role;
+        session.user.image = token.image as string | null;
       }
       return session;
     },

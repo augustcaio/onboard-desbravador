@@ -1,10 +1,10 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import { MembroForm } from "@/components/membros/MembroForm";
+import { RankingMembros } from "@/components/dashboard/Diretor/RankingMembros";
 import { Role } from "@/types/cargo";
 
-export default async function NovoMembroPage() {
+export default async function RankingPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -13,21 +13,17 @@ export default async function NovoMembroPage() {
 
   const role = session.user?.role as Role;
 
-  // Apenas DIRETORIA e SECRETARIA podem acessar
-  if (role !== "DIRETORIA" && role !== "SECRETARIA") {
-    redirect("/");
-  }
-
+  // Todas as roles podem ver o ranking
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Novo Membro</h1>
+        <h1 className="text-2xl font-bold">Ranking</h1>
         <p className="text-muted-foreground">
-          Cadastre um novo membro no clube
+          Posição dos desbravadores por pontuação
         </p>
       </div>
 
-      <MembroForm />
+      <RankingMembros />
     </div>
   );
 }

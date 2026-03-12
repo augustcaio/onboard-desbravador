@@ -15,12 +15,10 @@ export default async function ProtectedLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar user={session.user} />
-      <main className="pt-16">
-        <div className="container mx-auto p-4 lg:p-8">
-          {children}
-        </div>
+    <div className="flex flex-col">
+      <Navbar />
+      <main className="flex-1 p-5 md:p-8">
+        {children}
       </main>
     </div>
   );

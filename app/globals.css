@@ -106,12 +106,16 @@
   * {
     border-color: var(--border);
   }
+  html {
+    font-family: var(--font-sans);
+  }
   body {
     background-color: var(--background);
     color: var(--foreground);
     overflow-y: scroll !important;
   }
-  html {
-    font-family: var(--font-sans);
-  }
+}
+
+[data-radix-popper-content-wrapper] {
+  z-index: 200 !important;
 }

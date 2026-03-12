@@ -1,10 +1,10 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import { MembroForm } from "@/components/membros/MembroForm";
+import PontuacaoFormWrapper from "@/components/pontuacao/PontuacaoFormWrapper";
 import { Role } from "@/types/cargo";
 
-export default async function NovoMembroPage() {
+export default async function NovaPontuacaoPage({ searchParams }: { searchParams: Promise<{ membroId?: string }> }) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -19,15 +19,15 @@ export default async function NovoMembroPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Novo Membro</h1>
+        <h1 className="text-2xl font-bold">Lançar Pontuação</h1>
         <p className="text-muted-foreground">
-          Cadastre um novo membro no clube
+          Atribua pontos aos desbravadores
         </p>
       </div>
 
-      <MembroForm />
+      <PontuacaoFormWrapper params={Promise.resolve(searchParams)} />
     </div>
   );
 }

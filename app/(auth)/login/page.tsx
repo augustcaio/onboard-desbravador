@@ -2,6 +2,7 @@
 
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -13,16 +14,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="flex-1 flex items-center justify-center">
       <div className="flex flex-col items-center gap-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground tracking-tight">
-            Bem-vindo ao
-          </h1>
-          <p className="text-4xl font-bold text-foreground tracking-tight mt-1">
-            Clube Quetzal
-          </p>
-        </div>
+        <Image
+          src="/quetzal_logo_no_bg.png"
+          alt="Clube Quetzal"
+          width={150}
+          height={150}
+          priority
+          className="mb-4"
+        />
 
         <button
           onClick={handleGoogleLogin}

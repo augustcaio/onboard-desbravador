@@ -1,10 +1,13 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import { MembroForm } from "@/components/membros/MembroForm";
 import { Role } from "@/types/cargo";
 
-export default async function NovoMembroPage() {
+export default async function MembroEditLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -18,16 +21,5 @@ export default async function NovoMembroPage() {
     redirect("/");
   }
 
-  return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Novo Membro</h1>
-        <p className="text-muted-foreground">
-          Cadastre um novo membro no clube
-        </p>
-      </div>
-
-      <MembroForm />
-    </div>
-  );
+  return <>{children}</>;
 }

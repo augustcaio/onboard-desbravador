@@ -1,3 +1,5 @@
+"use client";
+
 import { Provider } from "@/app/provider";
 
 export default function AuthLayout({
@@ -5,5 +7,9 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <Provider>{children}</Provider>;
+  return (
+    <Provider>
+      {children}
+    </Provider>
+  );
 }
