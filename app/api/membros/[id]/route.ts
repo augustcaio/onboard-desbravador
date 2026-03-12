@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Role } from "@/types/cargo";
 
 export async function GET(
   request: NextRequest,
@@ -105,13 +108,35 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // 1. Verificar autenticação
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json(
+        { error: "Não autorizado" },
+        { status: 401 }
+      );
+    }
+
+    // 2. Verificar autorização (apenas DIRETORIA e SECRETARIA)
+    const role = session.user?.role as Role;
+    if (role !== "DIRETORIA" && role !== "SECRETARIA") {
+      return NextResponse.json(
+        { error: "Permissão negada" },
+        { status: 403 }
+      );
+    }
+
     const { id } = await params;
 
-    await prisma.membro.delete({
-      where: { id },
+    // 3. Deletar em transação (membro + pontuações associadas)
+    await prisma.$transaction(async (tx) => {
+      // Deletar pontuações associadas
+      await tx.pontuacao.deleteMany({ where: { membroId: id } });
+      // Deletar membro
+      await tx.membro.delete({ where: { id } });
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, message: "Membro deletado com sucesso" });
   } catch (error) {
     console.error("Erro ao deletar membro:", error);
     return NextResponse.json(

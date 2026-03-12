@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { User, Pencil, ChevronLeft, ChevronRight, ClipboardList } from "lucide-react";
+import { User, Pencil, ChevronLeft, ChevronRight, ClipboardList, Trash2 } from "lucide-react";
 import { MembroFilters } from "./MembroFilters";
 import type { Membro } from "./types";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { useRouter } from "next/navigation";
 
 export function MembroList() {
+  const router = useRouter();
   const [membros, setMembros] = useState<Membro[]>([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState<any>({});
@@ -17,6 +20,11 @@ export function MembroList() {
     limit: 10,
     totalPages: 0,
   });
+
+  // Estado para o diálogo de confirmação
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [memberToDelete, setMemberToDelete] = useState<Membro | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     async function fetchMembros() {
@@ -80,6 +88,37 @@ export function MembroList() {
       MEMBRO: "bg-gray-100 text-gray-800",
     };
     return styles[role] || "bg-gray-100 text-gray-800";
+  };
+
+  const handleDeleteClick = (membro: Membro) => {
+    setMemberToDelete(membro);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!memberToDelete) return;
+
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/membros/${memberToDelete.id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        // Atualizar a lista removendo o membro localmente
+        setMembros(membros.filter(m => m.id !== memberToDelete.id));
+        setDeleteDialogOpen(false);
+        setMemberToDelete(null);
+      } else {
+        const error = await res.json();
+        alert(error.error || "Erro ao excluir membro");
+      }
+    } catch (error) {
+      console.error("Erro ao excluir membro:", error);
+      alert("Erro ao excluir membro");
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   return (
@@ -172,9 +211,17 @@ export function MembroList() {
                         <Link
                           href={`/membros/${membro.id}`}
                           className="inline-flex p-2 hover:bg-muted rounded-md transition-colors"
+                          title="Editar"
                         >
                           <Pencil className="w-4 h-4 text-muted-foreground" />
                         </Link>
+                        <button
+                          onClick={() => handleDeleteClick(membro)}
+                          className="inline-flex p-2 hover:bg-destructive/10 rounded-md transition-colors text-destructive"
+                          title="Excluir membro"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -218,6 +265,19 @@ export function MembroList() {
           </div>
         )}
       </div>
+
+      {/* Diálogo de Confirmação de Exclusão */}
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        title="Excluir Membro"
+        description={`Tem certeza que deseja excluir "${memberToDelete?.nome}"? Esta ação não pode ser desfeita e todas as pontuações associadas serão excluídas.`}
+        confirmText="Excluir"
+        cancelText="Cancelar"
+        onConfirm={handleDeleteConfirm}
+        variant="destructive"
+        loading={isDeleting}
+      />
     </div>
   );
 }
