@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
-import { Role, getCargoRole } from "@/types/cargo";
+import { Role, getCargoRole, Cargo } from "@/types/cargo";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -58,12 +58,13 @@ export const authOptions: NextAuthOptions = {
               });
 
               // Depois criar o membro vinculado ao usuário
+              const defaultCargo: Cargo = "DESBRAVADOR";
               const newMembro = await prisma.membro.create({
                 data: {
                   nome: profile.name || profile.email,
                   googleEmail: profile.email,
-                  cargo: "DESBRAVADOR",
-                  role: "MEMBRO",
+                  cargo: defaultCargo,
+                  role: getCargoRole(defaultCargo),
                   unidadeId: defaultUnidade.id,
                   userId: newUser.id,
                 },
@@ -82,7 +83,8 @@ export const authOptions: NextAuthOptions = {
           // Se o usuário existe, buscar membro vinculado
           if (existingUser?.membro) {
             token.id = existingUser.membro.id;
-            token.role = existingUser.membro.role as Role;
+            // Use getCargoRole to ensure the role is correct based on cargo
+            token.role = getCargoRole(existingUser.membro.cargo as Cargo);
             token.image = existingUser.image;
           } else if (existingUser) {
             // Usuário existe mas não tem membro, criar membro
@@ -91,12 +93,13 @@ export const authOptions: NextAuthOptions = {
             }) || await prisma.unidade.findFirst();
 
             if (defaultUnidade) {
+              const defaultCargo: Cargo = "DESBRAVADOR";
               const newMembro = await prisma.membro.create({
                 data: {
                   nome: existingUser.name || existingUser.email || "Membro",
                   googleEmail: profile.email,
-                  cargo: "DESBRAVADOR",
-                  role: "MEMBRO",
+                  cargo: defaultCargo,
+                  role: getCargoRole(defaultCargo),
                   unidadeId: defaultUnidade.id,
                   userId: existingUser.id,
                 },

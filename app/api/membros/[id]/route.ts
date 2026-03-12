@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { Role } from "@/types/cargo";
+import { Role, getCargoRole, Cargo } from "@/types/cargo";
 
 export async function GET(
   request: NextRequest,
@@ -56,12 +56,15 @@ export async function PUT(
     const body = await request.json();
     const { nome, googleEmail, cargo, role, unidadeId, novaUnidade } = body;
 
-    if (!nome || !cargo || !role || (!unidadeId && !novaUnidade)) {
+    if (!nome || !cargo || (!unidadeId && !novaUnidade)) {
       return NextResponse.json(
         { error: "Campos obrigatórios faltando" },
         { status: 400 }
       );
     }
+
+    // Calcular role baseada no cargo para garantir consistência
+    const roleCalculada = getCargoRole(cargo as Cargo);
 
     // Se nova unidade, criar primeiro
     let unidadeIdFinal = unidadeId;
@@ -88,7 +91,7 @@ export async function PUT(
         nome,
         googleEmail: googleEmail || null,
         cargo,
-        role,
+        role: roleCalculada, // Usa a role calculada do cargo
         unidadeId: unidadeIdFinal,
       },
     });

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Cargo, Role } from "@/types/cargo";
+import { Cargo, Role, getCargoRole } from "@/types/cargo";
 
 export async function GET(request: NextRequest) {
   try {
@@ -87,12 +87,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { nome, googleEmail, cargo, role, unidadeId, novaUnidade } = body;
 
-    if (!nome || !cargo || !role || (!unidadeId && !novaUnidade)) {
+    if (!nome || !cargo || (!unidadeId && !novaUnidade)) {
       return NextResponse.json(
         { error: "Campos obrigatórios faltando" },
         { status: 400 }
       );
     }
+
+    // Calcular role baseada no cargo para garantir consistência
+    const roleCalculada = getCargoRole(cargo as Cargo);
 
     // Se nova unidade, criar primeiro
     let unidadeIdFinal = unidadeId;
@@ -118,7 +121,7 @@ export async function POST(request: NextRequest) {
         nome,
         googleEmail: googleEmail || null,
         cargo,
-        role,
+        role: roleCalculada, // Usa a role calculada do cargo
         unidadeId: unidadeIdFinal,
       },
     });
