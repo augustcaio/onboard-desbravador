@@ -79,31 +79,46 @@ export const authOptions: NextAuthOptions = {
             }
           }
 
-          // Se o usuário existe, buscar membro vinculado
-          if (existingUser?.membro) {
-            token.id = existingUser.membro.id;
-            token.role = existingUser.membro.role as Role;
-            token.image = existingUser.image;
-          } else if (existingUser) {
-            // Usuário existe mas não tem membro, criar membro
-            let defaultUnidade = await prisma.unidade.findUnique({
-              where: { nome: "Quetzal" },
-            }) || await prisma.unidade.findFirst();
-
-            if (defaultUnidade) {
-              const newMembro = await prisma.membro.create({
-                data: {
-                  nome: existingUser.name || existingUser.email || "Membro",
-                  googleEmail: profile.email,
-                  cargo: "DESBRAVADOR",
-                  role: "MEMBRO",
-                  unidadeId: defaultUnidade.id,
-                  userId: existingUser.id,
-                },
+          // Se o usuário existe, atualizar a foto se necessário e buscar membro vinculado
+          if (existingUser) {
+            // Atualizar a foto do usuário se mudou no Google
+            const newPicture = (profile as { picture?: string }).picture;
+            if (newPicture && newPicture !== existingUser.image) {
+              console.log("Atualizando foto do usuário:", existingUser.id);
+              await prisma.user.update({
+                where: { id: existingUser.id },
+                data: { image: newPicture },
               });
-              token.id = newMembro.id;
-              token.role = newMembro.role as Role;
+              // Atualiza o objeto local para refletir a mudança imediatamente
+              existingUser.image = newPicture;
+            }
+
+            if (existingUser?.membro) {
+              token.id = existingUser.membro.id;
+              token.role = existingUser.membro.role as Role;
+              // Usa a imagem atualizada do usuário
               token.image = existingUser.image;
+            } else {
+              // Usuário existe mas não tem membro, criar membro
+              let defaultUnidade = await prisma.unidade.findUnique({
+                where: { nome: "Quetzal" },
+              }) || await prisma.unidade.findFirst();
+
+              if (defaultUnidade) {
+                const newMembro = await prisma.membro.create({
+                  data: {
+                    nome: existingUser.name || existingUser.email || "Membro",
+                    googleEmail: profile.email,
+                    cargo: "DESBRAVADOR",
+                    role: "MEMBRO",
+                    unidadeId: defaultUnidade.id,
+                    userId: existingUser.id,
+                  },
+                });
+                token.id = newMembro.id;
+                token.role = newMembro.role as Role;
+                token.image = existingUser.image;
+              }
             }
           }
         } catch (error) {
