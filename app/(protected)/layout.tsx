@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { Navbar } from "@/components/navbar/Navbar";
+import { AnnouncementPopup } from "@/components/AnnouncementPopup";
 
 export default async function ProtectedLayout({
   children,
@@ -16,6 +17,7 @@ export default async function ProtectedLayout({
 
   return (
     <div className="flex flex-col">
+      <AnnouncementPopup />
       <Navbar />
       <main className="flex-1 p-5 md:p-8">
         {children}
