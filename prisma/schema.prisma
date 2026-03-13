@@ -140,3 +140,15 @@ model Pontuacao {
   ofensa            Int      @default(0) // -500
   agressao          Int      @default(0) // -1000
 }
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  version   String
+  startDate DateTime @default(now())
+  endDate   DateTime?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
