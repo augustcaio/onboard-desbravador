@@ -17,14 +17,16 @@ export function AnnouncementPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [viewedAnnouncements, setViewedAnnouncements] = useState<string[]>([]);
 
+  // Efeito 1: Carregar viewedAnnouncements do localStorage (executa apenas na montagem)
   useEffect(() => {
-    // Carregar anúncios visualizados do localStorage
     const stored = localStorage.getItem("viewedAnnouncements");
     if (stored) {
       setViewedAnnouncements(JSON.parse(stored));
     }
+  }, []);
 
-    // Buscar anúncios da API
+  // Efeito 2: Buscar anúncios da API (depende de viewedAnnouncements)
+  useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
         const response = await fetch("/api/announcements");
