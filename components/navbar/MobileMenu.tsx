@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Menu, X, Home, Users, Trophy, LogOut, ClipboardList, User, Settings } from "lucide-react";
+import { Menu, X, Home, Users, Trophy, LogOut, ClipboardList, User, Settings, Calendar } from "lucide-react";
 import { Role, ROLE_LABELS } from "@/types/cargo";
 import { navigationItems } from "./types";
 
@@ -155,6 +155,8 @@ function getIcon(href: string) {
   switch (href) {
     case "/":
       return Home;
+    case "/calendario":
+      return Calendar;
     case "/ranking":
       return Trophy;
     case "/pontuacao":
