@@ -27,7 +27,7 @@ async function main() {
     },
   });
 
-  // Anúncio 2: Novidades
+  // Anúncio 2: Novidades (sem Favicon)
   await prisma.announcement.create({
     data: {
       title: "Novidades Recentes!",
@@ -35,8 +35,6 @@ async function main() {
         <p>As seguintes funcionalidades foram adicionadas recentemente:</p>
         <h4>✨ Exclusão de Membros</h4>
         <p>Agora é possível excluir membros com uma confirmação de segurança.</p>
-        <h4>🎨 Favicon Personalizado</h4>
-        <p>A aplicação agora tem um favicon baseado no logo do Clube Quetzal.</p>
         <h4>🔒 Sincronização Automática de Permissões</h4>
         <p>As permissões são automaticamente calculadas com base no cargo do membro.</p>
       </div>`,
