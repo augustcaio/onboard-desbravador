@@ -2,12 +2,14 @@
 
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { GoogleCalendarEmbed } from "@/components/GoogleCalendarEmbed";
 import { ResumoPontuacao } from "./ResumoPontuacao";
 import { RankingMembros } from "./RankingMembros";
+import { useCalendarEvents } from "@/hooks/useCalendarEvents";
+import { FullCalendarComponent } from "@/components/FullCalendarComponent";
 
 export function DashboardDiretor() {
   const { data: session, status } = useSession();
+  const { events, loading, error, calendarId } = useCalendarEvents();
 
   if (status === "loading") {
     return (
@@ -20,8 +22,6 @@ export function DashboardDiretor() {
   if (!session || session.user?.role !== "DIRETORIA") {
     redirect("/");
   }
-
-  const CALENDAR_ID = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_ID || "";
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -38,16 +38,12 @@ export function DashboardDiretor() {
         {/* Coluna da esquerda - Calendário */}
         <div className="lg:col-span-2 space-y-6">
           {/* Calendário */}
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <h2 className="text-lg font-semibold mb-4">Calendário de Atividades</h2>
-            <GoogleCalendarEmbed
-              calendarId={CALENDAR_ID}
-              height="400px"
-              mode="month"
-              showNav={true}
-              showTitle={false}
-            />
-          </div>
+          <FullCalendarComponent 
+            events={events} 
+            loading={loading} 
+            error={error}
+            calendarId={calendarId}
+          />
 
           {/* Ranking */}
           <RankingMembros />
