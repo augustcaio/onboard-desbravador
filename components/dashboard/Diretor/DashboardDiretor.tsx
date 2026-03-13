@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { GoogleCalendarEmbed } from "@/components/GoogleCalendarEmbed";
 import { ResumoPontuacao } from "./ResumoPontuacao";
 import { RankingMembros } from "./RankingMembros";
 
@@ -20,17 +21,51 @@ export function DashboardDiretor() {
     redirect("/");
   }
 
+  const CALENDAR_ID = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_ID || "";
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 md:space-y-8">
+      {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">Dashboard do Diretor</h1>
-        <p className="text-muted-foreground">
-          Visão geral das pontuações dos desbravadores
+        <h1 className="text-xl md:text-2xl font-bold">Dashboard do Diretor</h1>
+        <p className="text-sm text-muted-foreground">
+          Visão geral das pontuações e atividades
         </p>
       </div>
 
-      <ResumoPontuacao />
-      <RankingMembros />
+      {/* Grid principal */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Coluna da esquerda - Calendário */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Calendário */}
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <h2 className="text-lg font-semibold mb-4">Calendário de Atividades</h2>
+            <GoogleCalendarEmbed
+              calendarId={CALENDAR_ID}
+              height="400px"
+              mode="month"
+              showNav={true}
+              showTitle={false}
+            />
+          </div>
+
+          {/* Ranking */}
+          <RankingMembros />
+        </div>
+
+        {/* Coluna da direita - Resumo */}
+        <div className="space-y-6">
+          <ResumoPontuacao />
+
+          {/* Membros Logados */}
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <h2 className="text-lg font-semibold mb-4">Membros Ativos</h2>
+            <p className="text-sm text-muted-foreground">
+              Visualização de membros online (em breve)
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
