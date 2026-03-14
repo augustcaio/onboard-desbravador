@@ -1,0 +1,3 @@
+module.exports=[20866,a=>{"use strict";var b=a.i(87924),c=a.i(33557),d=a.i(76300);function e(){let{events:a,loading:e,error:f,calendarId:g}=(0,c.useCalendarEvents)();return(0,b.jsxs)("div",{className:"container mx-auto px-4 py-6 md:py-8",children:[(0,b.jsx)("h1",{className:"text-xl md:text-2xl font-bold mb-4 md:mb-6",children:"Calendário de Atividades"}),(0,b.jsx)(d.FullCalendarComponent,{events:a,loading:e,error:f,calendarId:g})]})}a.s(["default",()=>e])}];
+
+//# sourceMappingURL=app_%28protected%29_calendario_page_tsx_9a7a0a87._.js.map

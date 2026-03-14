@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Provider } from "./provider";
 import { Footer } from "@/components/Footer";
+import Head from "next/head";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Clube Quetzal",
-  description: "Sistema de pontuação de desbravadores",
+  title: "DBV-Hub",
+  description: "Sistema de gestão de desbravadores",
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -47,6 +48,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <meta name="google-site-verification" content="OOlNNEaCse87X9kc0c03ziZrad7n10TffiFWg_MvSrc" />
+      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-[100dvh] flex flex-col`}

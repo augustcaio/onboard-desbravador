@@ -1,0 +1,193 @@
+[debug] [2026-03-14T00:03:06.414Z] ----------------------------------------------------------------------
+[debug] [2026-03-14T00:03:06.415Z] Command:       C:\Users\caioa\AppData\Local\Volta\tools\image\node\24.14.0\node.exe C:\Users\caioa\OneDrive\Desktop\onboard-desbravador\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-03-14T00:03:06.416Z] CLI Version:   15.10.0
+[debug] [2026-03-14T00:03:06.416Z] Platform:      win32
+[debug] [2026-03-14T00:03:06.416Z] Node Version:  v24.14.0
+[debug] [2026-03-14T00:03:06.416Z] Time:          Fri Mar 13 2026 20:03:06 GMT-0400 (Horário Padrão do Amazonas)
+[debug] [2026-03-14T00:03:06.416Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-14T00:03:07.276Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"app hosting"}
+[debug] [2026-03-14T00:03:07.278Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-14T00:03:07.278Z] > authorizing via signed-in user (caioaugusto930@gmail.com)
+[debug] [2026-03-14T00:03:07.279Z] [iam] checking project clube-quetzal for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-03-14T00:03:07.279Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:07.279Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:07.280Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions [none]
+[debug] [2026-03-14T00:03:07.280Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions  x-goog-user-project=clube-quetzal
+[debug] [2026-03-14T00:03:07.280Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-14T00:03:08.303Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions 200
+[debug] [2026-03-14T00:03:08.303Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-14T00:03:08.303Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:08.303Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:08.303Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/clube-quetzal [none]
+[debug] [2026-03-14T00:03:08.874Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/clube-quetzal 200
+[debug] [2026-03-14T00:03:08.965Z] ----------------------------------------------------------------------
+[debug] [2026-03-14T00:03:08.967Z] Command:       C:\Users\caioa\AppData\Local\Volta\tools\image\node\24.14.0\node.exe C:\Users\caioa\OneDrive\Desktop\onboard-desbravador\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-03-14T00:03:08.967Z] CLI Version:   15.10.0
+[debug] [2026-03-14T00:03:08.967Z] Platform:      win32
+[debug] [2026-03-14T00:03:08.967Z] Node Version:  v24.14.0
+[debug] [2026-03-14T00:03:08.967Z] Time:          Fri Mar 13 2026 20:03:08 GMT-0400 (Horário Padrão do Amazonas)
+[debug] [2026-03-14T00:03:08.967Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-14T00:03:09.881Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"app hosting"}
+[debug] [2026-03-14T00:03:09.883Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-14T00:03:09.883Z] > authorizing via signed-in user (caioaugusto930@gmail.com)
+[debug] [2026-03-14T00:03:09.883Z] [iam] checking project clube-quetzal for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-03-14T00:03:09.884Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:09.884Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:09.885Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions [none]
+[debug] [2026-03-14T00:03:09.885Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions  x-goog-user-project=clube-quetzal
+[debug] [2026-03-14T00:03:09.885Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-14T00:03:10.910Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions 200
+[debug] [2026-03-14T00:03:10.911Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/clube-quetzal:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-03-14T00:03:10.911Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:10.911Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:10.911Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/clube-quetzal [none]
+[debug] [2026-03-14T00:03:08.874Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/clube-quetzal {"projectId":"clube-quetzal","projectNumber":"749670218941","displayName":"Clube Quetzal","name":"projects/clube-quetzal","resources":{"hostingSite":"clube-quetzal"},"state":"ACTIVE","etag":"1_d9ee3328-1496-4db4-9c2e-acb958b0134b"}
+[debug] [2026-03-14T00:03:11.389Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:11.389Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:11.389Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites pageToken=&pageSize=10
+[debug] [2026-03-14T00:03:11.438Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/clube-quetzal 200
+[debug] [2026-03-14T00:03:13.109Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites 200
+[debug] [2026-03-14T00:03:13.109Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites {"sites":[{"name":"projects/clube-quetzal/sites/clube-quetzal","defaultUrl":"https://clube-quetzal.web.app","appId":"1:749670218941:web:8f6f73b5c16bb347838bd4","type":"DEFAULT_SITE"}]}
+[debug] [2026-03-14T00:03:13.109Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:13.109Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:13.109Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:749670218941:web:8f6f73b5c16bb347838bd4/config [none]
+[debug] [2026-03-14T00:03:11.439Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/clube-quetzal {"projectId":"clube-quetzal","projectNumber":"749670218941","displayName":"Clube Quetzal","name":"projects/clube-quetzal","resources":{"hostingSite":"clube-quetzal"},"state":"ACTIVE","etag":"1_d9ee3328-1496-4db4-9c2e-acb958b0134b"}
+[debug] [2026-03-14T00:03:13.691Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:13.691Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:13.691Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites pageToken=&pageSize=10
+[debug] [2026-03-14T00:03:13.844Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:749670218941:web:8f6f73b5c16bb347838bd4/config 200
+[debug] [2026-03-14T00:03:13.844Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:749670218941:web:8f6f73b5c16bb347838bd4/config {"projectId":"clube-quetzal","appId":"1:749670218941:web:8f6f73b5c16bb347838bd4","storageBucket":"clube-quetzal.firebasestorage.app","apiKey":"AIzaSyD-xrmd0ZV21F5WPmbFjTw43KPW7_NIOQ4","authDomain":"clube-quetzal.firebaseapp.com","messagingSenderId":"749670218941","projectNumber":"749670218941","version":"2"}
+[debug] [2026-03-14T00:03:15.093Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites 200
+[debug] [2026-03-14T00:03:15.093Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites {"sites":[{"name":"projects/clube-quetzal/sites/clube-quetzal","defaultUrl":"https://clube-quetzal.web.app","appId":"1:749670218941:web:8f6f73b5c16bb347838bd4","type":"DEFAULT_SITE"}]}
+[debug] [2026-03-14T00:03:15.093Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:15.093Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:15.093Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:749670218941:web:8f6f73b5c16bb347838bd4/config [none]
+[debug] [2026-03-14T00:03:16.084Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:749670218941:web:8f6f73b5c16bb347838bd4/config 200
+[debug] [2026-03-14T00:03:16.084Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:749670218941:web:8f6f73b5c16bb347838bd4/config {"projectId":"clube-quetzal","appId":"1:749670218941:web:8f6f73b5c16bb347838bd4","storageBucket":"clube-quetzal.firebasestorage.app","apiKey":"AIzaSyD-xrmd0ZV21F5WPmbFjTw43KPW7_NIOQ4","authDomain":"clube-quetzal.firebaseapp.com","messagingSenderId":"749670218941","projectNumber":"749670218941","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-03-14T00:03:20.115Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:20.115Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:20.115Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal [none]
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-03-14T00:03:21.483Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal 200
+[debug] [2026-03-14T00:03:21.483Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal {"name":"projects/clube-quetzal/sites/clube-quetzal","defaultUrl":"https://clube-quetzal.web.app","appId":"1:749670218941:web:8f6f73b5c16bb347838bd4","type":"DEFAULT_SITE"}
+[debug] [2026-03-14T00:03:22.336Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:22.336Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:22.336Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal [none]
+[info] ▲ Next.js 16.1.6 (Turbopack)
+
+[info] - Environments: .env
+
+
+[info]   Creating an optimized production build ...
+
+[debug] [2026-03-14T00:03:23.690Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal 200
+[debug] [2026-03-14T00:03:23.690Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal {"name":"projects/clube-quetzal/sites/clube-quetzal","defaultUrl":"https://clube-quetzal.web.app","appId":"1:749670218941:web:8f6f73b5c16bb347838bd4","type":"DEFAULT_SITE"}
+[info] ⨯ Unable to acquire lock at C:\Users\caioa\OneDrive\Desktop\onboard-desbravador\.next\lock, is another instance of next build running?
+
+[info]   Suggestion: If you intended to restart next build, terminate the other process, and then try again.
+
+[debug] [2026-03-14T00:03:28.384Z] Error: ENOENT: no such file or directory, open 'C:\Users\caioa\OneDrive\Desktop\onboard-desbravador\.next\server\middleware-manifest.json'
+[error] 
+[error] Error: An unexpected error has occurred.
+[info] ✓ Compiled successfully in 11.0s
+
+[info]   Running TypeScript ...
+
+[info]   Collecting page data using 11 workers ...
+
+[info]   Generating static pages using 11 workers (0/21) ...
+
+[info]   Generating static pages using 11 workers (5/21) 
+
+[info]   Generating static pages using 11 workers (10/21) 
+
+[info]   Generating static pages using 11 workers (15/21) 
+
+[info] ✓ Generating static pages using 11 workers (21/21) in 694.2ms
+
+[info]   Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /api/announcements
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/calendar/events
+├ ƒ /api/membros
+├ ƒ /api/membros/[id]
+├ ƒ /api/membros/ranking
+├ ƒ /api/membros/unidades
+├ ƒ /api/pontuacao
+├ ƒ /api/pontuacao/membros
+├ ƒ /api/pontuacao/resumo
+├ ƒ /calendario
+├ ○ /login
+├ ƒ /membros
+├ ƒ /membros/[id]
+├ ƒ /membros/novo
+├ ƒ /pontuacao
+├ ƒ /pontuacao/novo
+├ ○ /privacidade
+├ ƒ /ranking
+└ ○ /termos
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /(protected)/calendario/page
+[info]  • non-static component /(protected)/membros/[id]/page
+[info]  • non-static component /(protected)/membros/novo/page
+[info]  • non-static component /(protected)/membros/page
+[info]  • non-static component /(protected)/page
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /(protected)/pontuacao/novo/page
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /(protected)/pontuacao/page
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /(protected)/ranking/page
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /api/announcements/route
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /api/auth/[...nextauth]/route
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /api/calendar/events/route
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /api/membros/[id]/route
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /api/membros/ranking/route
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /api/membros/route
+[debug] [2026-03-14T00:03:47.769Z]  • non-static component /api/membros/unidades/route
+[debug] [2026-03-14T00:03:47.770Z]  • non-static component /api/pontuacao/membros/route
+[debug] [2026-03-14T00:03:47.770Z]  • non-static component /api/pontuacao/resumo/route
+[debug] [2026-03-14T00:03:47.770Z]  • non-static component /api/pontuacao/route
+[info]  • and 13 other reasons, use --debug to see more
+[info] 
+[debug] [2026-03-14T00:03:52.277Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:52.277Z] Checked if tokens are valid: true, expires at: 1773449154170
+[debug] [2026-03-14T00:03:52.277Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal [none]
+[debug] [2026-03-14T00:03:53.598Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal 200
+[debug] [2026-03-14T00:03:53.598Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/clube-quetzal/sites/clube-quetzal {"name":"projects/clube-quetzal/sites/clube-quetzal","defaultUrl":"https://clube-quetzal.web.app","appId":"1:749670218941:web:8f6f73b5c16bb347838bd4","type":"DEFAULT_SITE"}
+[debug] [2026-03-14T00:03:54.303Z] Error: EPERM: operation not permitted, symlink 'C:\Users\caioa\OneDrive\Desktop\onboard-desbravador\node_modules\@prisma\client' -> 'C:\Users\caioa\OneDrive\Desktop\onboard-desbravador\.firebase\clube-quetzal\functions\.next\node_modules\@prisma\client-2c3a283f134fdcb6'
+[error] 
+[error] Error: An unexpected error has occurred.

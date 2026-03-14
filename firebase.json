@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "source": ".",
+    "predeploy": [
+      "npm run build"
+    ]
+  },
+  "app hosting": {
+    "runtime": "nodejs20",
+    "entryPoint": "server.js",
+    "regions": ["us-south1"]
+  }
+}

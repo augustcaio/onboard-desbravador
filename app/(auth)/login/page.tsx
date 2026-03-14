@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +19,7 @@ export default function LoginPage() {
       <div className="flex flex-col items-center gap-8">
         <Image
           src="/quetzal_logo_no_bg.png"
-          alt="Clube Quetzal"
+          alt="DBV-Hub"
           width={150}
           height={150}
           priority

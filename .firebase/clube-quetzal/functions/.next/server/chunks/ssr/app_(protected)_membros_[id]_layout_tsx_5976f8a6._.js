@@ -1,0 +1,3 @@
+module.exports=[42218,a=>{"use strict";var b=a.i(7997),c=a.i(20971),d=a.i(9223);a.i(70396);var e=a.i(73727);async function f({children:a}){let f=await (0,c.getServerSession)(d.authOptions);f||(0,e.redirect)("/login");let g=f.user?.role;return"DIRETORIA"!==g&&"SECRETARIA"!==g&&(0,e.redirect)("/"),(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>f])}];
+
+//# sourceMappingURL=app_%28protected%29_membros_%5Bid%5D_layout_tsx_5976f8a6._.js.map
