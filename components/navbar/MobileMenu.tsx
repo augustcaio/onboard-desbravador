@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Menu, X, Home, Users, Trophy, LogOut, ClipboardList, User, Settings, Calendar } from "lucide-react";
+import { Menu, X, Home, Users, Trophy, LogOut, ClipboardList, User, Calendar, ChevronDown, Building2 } from "lucide-react";
 import { Role, ROLE_LABELS } from "@/types/cargo";
 import { navigationItems } from "./types";
 
@@ -14,6 +14,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ role }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [rankingExpanded, setRankingExpanded] = useState(false);
   const pathname = usePathname();
   const { data: session } = useSession();
   const user = session?.user;
@@ -38,6 +39,13 @@ export function MobileMenu({ role }: MobileMenuProps) {
       return (parts[0][0] + parts[1][0]).toUpperCase();
     }
     return name.substring(0, 2).toUpperCase();
+  };
+
+  const isRankingActive = (href: string) => {
+    if (href.includes("?")) {
+      return pathname === href.split("?")[0];
+    }
+    return pathname === href;
   };
 
   return (
@@ -106,6 +114,50 @@ export function MobileMenu({ role }: MobileMenuProps) {
         {/* Links */}
         <nav className="flex flex-col p-4">
           {filteredItems.map((item) => {
+            if (item.children) {
+              return (
+                <div key={item.href}>
+                  <button
+                    onClick={() => setRankingExpanded(!rankingExpanded)}
+                    className={`flex items-center justify-between w-full px-4 py-3 rounded-md transition-colors ${
+                      isRankingActive(item.href)
+                        ? "bg-muted text-foreground"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Trophy className="w-5 h-5" />
+                      {item.label}
+                    </div>
+                    <ChevronDown
+                      className={`w-5 h-5 transition-transform ${
+                        rankingExpanded ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {rankingExpanded && (
+                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-muted pl-4">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={handleLinkClick}
+                          className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${
+                            pathname === child.href
+                              ? "bg-muted text-foreground"
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          }`}
+                        >
+                          <Users className="w-4 h-4" />
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             const isActive = pathname === item.href;
             const Icon = getIcon(item.href);
             return (
