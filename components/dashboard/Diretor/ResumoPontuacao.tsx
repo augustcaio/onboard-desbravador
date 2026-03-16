@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users, Trophy, TrendingUp, Award } from "lucide-react";
+import { Users, Trophy, TrendingUp, Award, Target } from "lucide-react";
 import type { ResumoPontuacao } from "./types";
 
 export function ResumoPontuacao() {
@@ -27,8 +27,8 @@ export function ResumoPontuacao() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[1, 2, 3, 4].map((i) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+        {[1, 2, 3, 4, 5].map((i) => (
           <div key={i} className="bg-card rounded-lg p-6 border animate-pulse">
             <div className="h-4 bg-muted rounded w-1/2 mb-2"></div>
             <div className="h-8 bg-muted rounded w-3/4"></div>
@@ -64,10 +64,17 @@ export function ResumoPontuacao() {
       icon: Award,
       color: "text-purple-500",
     },
+    {
+      title: "Unidade Líder",
+      value: data?.unidadeLider ?? "-",
+      subtitle: "Unidade com maior pontuação",
+      icon: Target,
+      color: "text-orange-500",
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
       {cards.map((card, index) => {
         const Icon = card.icon;
         return (

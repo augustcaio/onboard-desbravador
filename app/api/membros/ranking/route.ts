@@ -61,10 +61,10 @@ export async function GET(request: NextRequest) {
 
         // Pontuação negativa
         const pontosNegativos =
-          (p.indisciplina || 0) +
-          (p.xingamentos || 0) +
-          (p.ofensa || 0) +
-          (p.agressao || 0);
+          Math.abs(p.indisciplina || 0) +
+          Math.abs(p.xingamentos || 0) +
+          Math.abs(p.ofensa || 0) +
+          Math.abs(p.agressao || 0);
 
         return acc + pontosPositivos - pontosNegativos;
       }, 0);
