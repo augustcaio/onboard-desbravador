@@ -69,10 +69,10 @@ export async function GET(request: NextRequest) {
         (p.dinamicas || 0);
 
       const negativos =
-        (p.indisciplina || 0) +
-        (p.xingamentos || 0) +
-        (p.ofensa || 0) +
-        (p.agressao || 0);
+        Math.abs(p.indisciplina || 0) +
+        Math.abs(p.xingamentos || 0) +
+        Math.abs(p.ofensa || 0) +
+        Math.abs(p.agressao || 0);
 
       return {
         id: p.id,
@@ -170,6 +170,7 @@ export async function POST(request: NextRequest) {
 
     // Verificar se já existe pontuação para este membro nesta data
     const dataInicio = new Date(data);
+    dataInicio.setHours(0, 0, 0, 0);
     const dataFim = new Date(data);
     dataFim.setHours(23, 59, 59, 999);
 
@@ -183,35 +184,53 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    let pontuacao;
     if (pontuacaoExistente) {
-      return NextResponse.json(
-        { error: "Já existe uma pontuação para este membro nesta data" },
-        { status: 400 }
-      );
+      // Atualizar pontuação existente
+      pontuacao = await prisma.pontuacao.update({
+        where: { id: pontuacaoExistente.id },
+        data: {
+          kitEspiritual,
+          lenco,
+          pontualidade,
+          cantil,
+          bandeirim,
+          uniformeDomingo,
+          atividadeCartao,
+          especialidade,
+          presencaEventos,
+          visita,
+          dinamicas,
+          indisciplina,
+          xingamentos,
+          ofensa,
+          agressao,
+        },
+      });
+    } else {
+      // Criar nova pontuação
+      pontuacao = await prisma.pontuacao.create({
+        data: {
+          membroId,
+          data: new Date(data),
+          kitEspiritual,
+          lenco,
+          pontualidade,
+          cantil,
+          bandeirim,
+          uniformeDomingo,
+          atividadeCartao,
+          especialidade,
+          presencaEventos,
+          visita,
+          dinamicas,
+          indisciplina,
+          xingamentos,
+          ofensa,
+          agressao,
+        },
+      });
     }
-
-    // Criar pontuação
-    const pontuacao = await prisma.pontuacao.create({
-      data: {
-        membroId,
-        data: new Date(data),
-        kitEspiritual,
-        lenco,
-        pontualidade,
-        cantil,
-        bandeirim,
-        uniformeDomingo,
-        atividadeCartao,
-        especialidade,
-        presencaEventos,
-        visita,
-        dinamicas,
-        indisciplina,
-        xingamentos,
-        ofensa,
-        agressao,
-      },
-    });
 
     return NextResponse.json(pontuacao);
   } catch (error) {

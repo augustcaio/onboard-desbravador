@@ -84,10 +84,10 @@ export function PontuacaoForm({ initialMembroId }: PontuacaoFormProps) {
       (formData.dinamicas || 0);
 
     const negativos =
-      (formData.indisciplina || 0) +
-      (formData.xingamentos || 0) +
-      (formData.ofensa || 0) +
-      (formData.agressao || 0);
+      Math.abs(formData.indisciplina || 0) +
+      Math.abs(formData.xingamentos || 0) +
+      Math.abs(formData.ofensa || 0) +
+      Math.abs(formData.agressao || 0);
 
     return positivos - negativos;
   };
@@ -409,68 +409,68 @@ export function PontuacaoForm({ initialMembroId }: PontuacaoFormProps) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">
-                Indisciplina (-100)
+                Indisciplina
               </label>
               <input
                 type="number"
-                max="0"
+                min="0"
                 className="w-full px-3 py-2 rounded-md border bg-background"
                 value={formData.indisciplina}
                 onChange={(e) =>
                   setFormData((f) => ({
                     ...f,
-                    indisciplina: Math.min(0, parseInt(e.target.value) || 0),
+                    indisciplina: Math.max(0, parseInt(e.target.value) || 0),
                   }))
                 }
               />
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">
-                Xingamentos (-200)
+                Xingamentos
               </label>
               <input
                 type="number"
-                max="0"
+                min="0"
                 className="w-full px-3 py-2 rounded-md border bg-background"
                 value={formData.xingamentos}
                 onChange={(e) =>
                   setFormData((f) => ({
                     ...f,
-                    xingamentos: Math.min(0, parseInt(e.target.value) || 0),
+                    xingamentos: Math.max(0, parseInt(e.target.value) || 0),
                   }))
                 }
               />
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">
-                Ofensa (-500)
+                Ofensa
               </label>
               <input
                 type="number"
-                max="0"
+                min="0"
                 className="w-full px-3 py-2 rounded-md border bg-background"
                 value={formData.ofensa}
                 onChange={(e) =>
                   setFormData((f) => ({
                     ...f,
-                    ofensa: Math.min(0, parseInt(e.target.value) || 0),
+                    ofensa: Math.max(0, parseInt(e.target.value) || 0),
                   }))
                 }
               />
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">
-                Agressão (-1000)
+                Agressão
               </label>
               <input
                 type="number"
-                max="0"
+                min="0"
                 className="w-full px-3 py-2 rounded-md border bg-background"
                 value={formData.agressao}
                 onChange={(e) =>
                   setFormData((f) => ({
                     ...f,
-                    agressao: Math.min(0, parseInt(e.target.value) || 0),
+                    agressao: Math.max(0, parseInt(e.target.value) || 0),
                   }))
                 }
               />

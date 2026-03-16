@@ -10,6 +10,7 @@ export interface ResumoPontuacao {
   totalPontos: number;
   mediaPontos: number;
   top3: MembroPontuacao[];
+  unidadeLider?: string | null;
 }
 
 export interface PontuacaoFilters {
