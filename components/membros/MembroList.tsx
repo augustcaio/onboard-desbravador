@@ -7,6 +7,7 @@ import { User, Pencil, ChevronLeft, ChevronRight, ClipboardList, Trash2 } from "
 import { MembroFilters } from "./MembroFilters";
 import type { Membro } from "./types";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { UnidadeBadge } from "@/components/ui/UnidadeBadge";
 import { useRouter } from "next/navigation";
 
 export function MembroList() {
@@ -188,7 +189,11 @@ export function MembroList() {
                         </div>
                       </div>
                     </td>
-                    <td className="p-3">{membro.unidadeNome}</td>
+                    <td className="p-3">
+                      <div className="flex justify-center">
+                        <UnidadeBadge nome={membro.unidadeNome} size="md" />
+                      </div>
+                    </td>
                     <td className="p-3">{getCargoLabel(membro.cargo)}</td>
                     <td className="p-3">
                       <span

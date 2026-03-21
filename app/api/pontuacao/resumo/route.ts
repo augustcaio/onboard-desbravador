@@ -112,12 +112,20 @@ export async function GET() {
     rankingUnidades.sort((a, b) => b.totalPontos - a.totalPontos);
     const unidadeLider = rankingUnidades[0]?.nome || null;
 
+    // Buscar conselheiro líder
+    const conselheiros = membrosComPontos.filter((m) => {
+      const membro = membros.find((mem) => mem.id === m.id);
+      return membro?.cargo === "CONSELHEIRO";
+    });
+    const conselheiroLider = conselheiros[0] || null;
+
     return NextResponse.json({
       totalMembros,
       totalPontos,
       mediaPontos,
       top3,
       unidadeLider,
+      conselheiroLider,
     });
   } catch (error) {
     console.error("Erro ao buscar resumo:", error);

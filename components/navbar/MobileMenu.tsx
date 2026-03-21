@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { Menu, X, Home, Users, Trophy, LogOut, ClipboardList, User, Calendar, ChevronDown, Building2 } from "lucide-react";
+import { Menu, X, Home, Users, Trophy, LogOut, ClipboardList, User, Calendar, ChevronDown } from "lucide-react";
 import { Role, ROLE_LABELS } from "@/types/cargo";
 import { navigationItems } from "./types";
 
@@ -53,41 +53,41 @@ export function MobileMenu({ role }: MobileMenuProps) {
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2 rounded-md hover:bg-muted transition-colors"
+        className="p-2 rounded-md hover:bg-[#59e865] hover:text-black transition-colors"
         aria-label="Abrir menu"
       >
-        <Menu className="w-6 h-6" />
+        <Menu className="w-6 h-6 text-white" />
       </button>
 
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 bg-black/70 z-40"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Sheet Lateral */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-background z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 h-full w-72 bg-black z-50 transform transition-transform duration-300 ease-in-out border-r border-gray-800 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
-          <span className="font-semibold">Menu</span>
+        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+          <span className="font-semibold text-white">Menu</span>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 rounded-md hover:bg-muted transition-colors"
+            className="p-2 rounded-md hover:bg-[#59e865] hover:text-black transition-colors"
             aria-label="Fechar menu"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-white" />
           </button>
         </div>
 
         {/* User Info Section */}
         {user && (
-          <div className="flex items-center gap-3 px-4 py-3 border-b bg-muted/50">
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-800">
             {user.image ? (
               <img
                 src={user.image}
@@ -95,16 +95,16 @@ export function MobileMenu({ role }: MobileMenuProps) {
                 className="w-10 h-10 rounded-full"
               />
             ) : (
-              <div className="w-10 h-10 rounded-full bg-background flex items-center justify-center border">
-                <span className="text-sm font-medium">{getInitials(user.name)}</span>
+              <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">
+                <span className="text-sm font-medium text-white">{getInitials(user.name)}</span>
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <div className="font-medium truncate">{user.name || "Usuário"}</div>
-              <div className="text-xs text-muted-foreground truncate">
+              <div className="font-medium truncate text-white">{user.name || "Usuário"}</div>
+              <div className="text-xs text-gray-400 truncate">
                 {user.email}
               </div>
-              <div className="text-xs text-muted-foreground mt-0.5">
+              <div className="text-xs text-gray-400 mt-0.5">
                 {ROLE_LABELS[role]}
               </div>
             </div>
@@ -121,8 +121,8 @@ export function MobileMenu({ role }: MobileMenuProps) {
                     onClick={() => setRankingExpanded(!rankingExpanded)}
                     className={`flex items-center justify-between w-full px-4 py-3 rounded-md transition-colors ${
                       isRankingActive(item.href)
-                        ? "bg-muted text-foreground"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        ? "bg-[#59e865] text-black"
+                        : "text-gray-300 hover:bg-[#59e865] hover:text-black"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export function MobileMenu({ role }: MobileMenuProps) {
                     />
                   </button>
                   {rankingExpanded && (
-                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-muted pl-4">
+                    <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-800 pl-4">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
@@ -144,8 +144,8 @@ export function MobileMenu({ role }: MobileMenuProps) {
                           onClick={handleLinkClick}
                           className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${
                             pathname === child.href
-                              ? "bg-muted text-foreground"
-                              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                              ? "bg-[#59e865] text-black"
+                              : "text-gray-300 hover:bg-[#59e865] hover:text-black"
                           }`}
                         >
                           <Users className="w-4 h-4" />
@@ -167,8 +167,8 @@ export function MobileMenu({ role }: MobileMenuProps) {
                 onClick={handleLinkClick}
                 className={`flex items-center gap-3 px-4 py-3 rounded-md transition-colors ${
                   isActive
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-[#59e865] text-black"
+                    : "text-gray-300 hover:bg-[#59e865] hover:text-black"
                 }`}
               >
                 {Icon && <Icon className="w-5 h-5" />}
@@ -179,11 +179,11 @@ export function MobileMenu({ role }: MobileMenuProps) {
         </nav>
 
         {/* Footer com Perfil e Logout */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t space-y-2">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-800 space-y-2">
           {/* Botão Perfil - Desabilitado */}
           <button
             disabled
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-md text-muted-foreground opacity-50 cursor-not-allowed"
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-md text-gray-500 opacity-50 cursor-not-allowed"
           >
             <User className="w-5 h-5" />
             Ver Perfil
@@ -192,7 +192,7 @@ export function MobileMenu({ role }: MobileMenuProps) {
           {/* Botão Logout */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-md text-destructive hover:bg-destructive/10 transition-colors"
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-md text-red-400 hover:bg-red-500 hover:text-white transition-colors"
           >
             <LogOut className="w-5 h-5" />
             Sair

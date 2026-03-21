@@ -16,6 +16,7 @@ export const navigationItems: NavItem[] = [
     roles: ["DIRETORIA", "SECRETARIA", "LIDERANCA", "MEMBRO"],
     children: [
       { label: "Membros", href: "/ranking?tipo=membros", roles: ["DIRETORIA", "SECRETARIA", "LIDERANCA", "MEMBRO"] },
+      { label: "Conselheiros", href: "/ranking?tipo=conselheiros", roles: ["DIRETORIA", "SECRETARIA", "LIDERANCA", "MEMBRO"] },
       { label: "Unidades", href: "/ranking?tipo=unidades", roles: ["DIRETORIA", "SECRETARIA", "LIDERANCA", "MEMBRO"] },
     ]
   },

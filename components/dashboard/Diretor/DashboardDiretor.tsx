@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { ResumoPontuacao } from "./ResumoPontuacao";
 import { RankingMembros } from "./RankingMembros";
 import { RankingUnidades } from "./RankingUnidades";
+import { RankingConselheiros } from "./RankingConselheiros";
 import { useCalendarEvents } from "@/hooks/useCalendarEvents";
 import { FullCalendarComponent } from "@/components/FullCalendarComponent";
 
@@ -48,6 +49,7 @@ export function DashboardDiretor() {
       {/* Rankings */}
       <div className="space-y-6">
         <RankingUnidades />
+        <RankingConselheiros />
         <RankingMembros />
       </div>
     </div>

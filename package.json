@@ -9,7 +9,8 @@
     "lint": "eslint",
     "postinstall": "prisma generate",
     "db:fix-roles": "tsx scripts/fix-roles.ts",
-    "db:seed-announcements": "tsx scripts/seed-announcements.ts"
+    "db:seed-announcements": "tsx scripts/seed-announcements.ts",
+    "db:update-announcements": "tsx scripts/update-announcements.ts"
   },
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.20",

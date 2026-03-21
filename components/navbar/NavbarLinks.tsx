@@ -40,8 +40,8 @@ export function NavbarLinks({ role }: NavbarLinksProps) {
                 <button
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-1 ${
                     isActive(item.href)
-                      ? "text-foreground bg-muted"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      ? "text-[#59e865] bg-[#59e865]/20"
+                      : "text-gray-300 hover:text-white hover:bg-[#59e865]"
                   }`}
                 >
                   {item.label}
@@ -68,8 +68,8 @@ export function NavbarLinks({ role }: NavbarLinksProps) {
             href={item.href}
             className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
               itemIsActive
-                ? "text-foreground bg-muted"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                ? "text-[#59e865] bg-[#59e865]/20"
+                : "text-gray-300 hover:text-white hover:bg-[#59e865]"
             }`}
           >
             {item.label}

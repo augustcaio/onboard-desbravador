@@ -33,7 +33,6 @@ export function FullCalendarComponent({
   const [popupOpen, setPopupOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<PopupEvent | null>(null);
 
-  // Detectar tamanho da tela para layout responsivo
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -55,7 +54,6 @@ export function FullCalendarComponent({
     },
   }));
 
-  // Toolbar configurável baseada no tamanho da tela
   const headerToolbar = isMobile
     ? {
         left: "prev,next",
@@ -70,30 +68,29 @@ export function FullCalendarComponent({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-[400px] bg-white rounded-lg shadow-md border border-border">
+      <div className="flex items-center justify-center h-[400px] bg-black rounded-lg shadow-md border border-gray-800">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-muted-foreground text-sm">Carregando calendário...</p>
+          <div className="w-8 h-8 border-2 border-gray-700 border-t-[#59e865] rounded-full animate-spin"></div>
+          <p className="text-gray-400 text-sm">Carregando calendário...</p>
         </div>
       </div>
     );
   }
 
-  // Exibir mensagem de erro inline se o calendário não for encontrado
   if (error) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-4 md:p-6 border border-border">
-        <div className="flex items-center gap-3 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+      <div className="bg-black rounded-lg shadow-md p-4 md:p-6 border border-gray-800">
+        <div className="flex items-center gap-3 p-4 bg-amber-950 border border-amber-800 rounded-lg">
           <div className="flex-shrink-0">
-            <svg className="h-6 w-6 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+            <svg className="h-6 w-6 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
           </div>
           <div className="flex-1">
-            <p className="text-sm text-amber-800 font-medium">
+            <p className="text-sm text-amber-300 font-medium">
               Agenda não encontrada
             </p>
-            <p className="text-sm text-amber-700 mt-1">
+            <p className="text-sm text-amber-400 mt-1">
               {error}
             </p>
           </div>
@@ -102,16 +99,15 @@ export function FullCalendarComponent({
     );
   }
 
-  // Se não houver eventos e não estiver carregando, exibir mensagem vazia
   if (calendarEvents.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-4 border border-border">
+      <div className="bg-black rounded-lg shadow-md p-4 border border-gray-800">
         <div className="flex items-center justify-center h-[400px]">
           <div className="text-center">
-            <svg className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-12 w-12 text-gray-500 mx-auto mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <p className="text-muted-foreground">Nenhum evento encontrado neste mês.</p>
+            <p className="text-gray-400">Nenhum evento encontrado neste mês.</p>
           </div>
         </div>
       </div>
@@ -119,19 +115,19 @@ export function FullCalendarComponent({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md border border-border overflow-hidden">
+    <div className="bg-black rounded-lg shadow-md border border-gray-800 overflow-hidden">
       {/* Cabeçalho do calendário */}
-      <div className="p-3 md:p-4 border-b border-border bg-gray-50/50">
+      <div className="p-3 md:p-4 border-b border-gray-800 bg-gray-900/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-5 w-5 text-[#59e865]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className="text-sm font-medium text-muted-foreground hidden sm:inline">
+            <span className="text-sm font-medium text-gray-400 hidden sm:inline">
               Agenda Quetzal
             </span>
           </div>
-          <div className="text-xs text-muted-foreground">
+          <div className="text-xs text-gray-500">
             {isMobile ? 'Toque nos botões para navegar' : 'Clique nos botões para navegar'}
           </div>
         </div>
@@ -175,13 +171,13 @@ export function FullCalendarComponent({
           dayMaxEvents={isMobile}
           weekends={true}
           nowIndicator={true}
-          firstDay={0} // Domingo como primeiro dia da semana
+          firstDay={0}
         />
       </div>
 
       {/* Footer com informações */}
-      <div className="p-2 md:p-3 border-t border-border bg-gray-50/30">
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
+      <div className="p-2 md:p-3 border-t border-gray-800 bg-gray-900/30">
+        <div className="flex items-center justify-between text-xs text-gray-400">
           <span>📅 {calendarEvents.length} evento(s) este mês</span>
           <span className="hidden sm:inline">💡 Dica: Clique em um evento para ver detalhes</span>
         </div>

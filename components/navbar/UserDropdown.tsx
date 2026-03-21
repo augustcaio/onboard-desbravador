@@ -31,7 +31,7 @@ export function UserDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors flex-shrink-0 whitespace-nowrap w-fit min-w-0">
+        <button className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-[#59e865] hover:text-black transition-colors flex-shrink-0 whitespace-nowrap w-fit min-w-0">
           <div className="flex items-center gap-2 min-w-0">
             {user.image ? (
               <img
@@ -40,42 +40,42 @@ export function UserDropdown() {
                 className="w-7 h-7 rounded-full flex-shrink-0"
               />
             ) : (
-              <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
-                <span className="text-xs font-medium">{getInitials(user.name)}</span>
+              <div className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-medium text-white">{getInitials(user.name)}</span>
               </div>
             )}
             <div className="hidden sm:block text-left min-w-0">
-              <div className="text-sm font-medium truncate">
+              <div className="text-sm font-medium truncate text-white">
                 {user.name || "Usuário"}
               </div>
-              <div className="text-xs text-muted-foreground truncate">
+              <div className="text-xs text-gray-400 truncate">
                 {ROLE_LABELS[role]}
               </div>
             </div>
           </div>
-          <ChevronDown className="w-4 h-4 flex-shrink-0" />
+          <ChevronDown className="w-4 h-4 flex-shrink-0 text-gray-400" />
         </button>
       </DropdownMenuTrigger>
 
       <DropdownMenuPortal>
-        <DropdownMenuContent align="end" sideOffset={0} className="w-56">
-          <div className="px-3 py-2">
-            <div className="font-medium text-sm truncate">
+        <DropdownMenuContent align="end" sideOffset={0} className="w-56 bg-black border-gray-800">
+          <div className="px-3 py-2 border-b border-gray-800">
+            <div className="font-medium text-sm truncate text-white">
               {user.name || "Usuário"}
             </div>
-            <div className="text-xs text-muted-foreground truncate">
+            <div className="text-xs text-gray-400 truncate">
               {user.email}
             </div>
-            <div className="mt-1 text-xs px-2 py-0.5 bg-muted rounded-full inline-block">
+            <div className="mt-1 text-xs px-2 py-0.5 bg-[#59e865]/20 text-[#59e865] rounded-full inline-block">
               {ROLE_LABELS[role]}
             </div>
           </div>
 
-          <DropdownMenuSeparator />
+          <DropdownMenuSeparator className="bg-gray-800" />
 
           <DropdownMenuItem
             disabled
-            className="cursor-default opacity-60"
+            className="cursor-default opacity-60 text-gray-500"
           >
             <User className="w-4 h-4 mr-2" />
             Ver Perfil
@@ -83,7 +83,7 @@ export function UserDropdown() {
 
           <DropdownMenuItem
             onClick={() => signOut({ callbackUrl: "/login" })}
-            className="cursor-pointer text-destructive focus:text-destructive"
+            className="cursor-pointer text-red-400 hover:bg-red-500 hover:text-white focus:text-white"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Sair
